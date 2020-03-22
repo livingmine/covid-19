@@ -14,6 +14,7 @@
     "prop-types": "15.7.2",
     "react": "16.13.0",
     "react-dom": "16.13.0",
+    "react-google-charts": "^3.0.15",
     "react-helmet": "5.2.1"
   },
   "keywords": [
@@ -31,6 +32,7 @@
     "fix:prettier": "prettier --write \"**/*.{css,js,jsx,json,md}\"",
     "fix": "npm run fix:lint && npm run fix:prettier",
     "build": "gatsby build",
+    "deploy": "gatsby build --prefix-paths && gh-pages -d public",
     "develop": "gatsby develop",
     "start": "npm run develop",
     "serve": "gatsby serve",
@@ -47,6 +49,7 @@
     "eslint-plugin-import": "2.20.1",
     "eslint-plugin-react": "7.19.0",
     "gatsby-plugin-eslint": "2.0.8",
+    "gh-pages": "^2.2.0",
     "prettier": "1.19.1",
     "tailwindcss": "1.2.0"
   },
