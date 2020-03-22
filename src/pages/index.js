@@ -13,8 +13,24 @@ function IndexPage() {
         title="Home"
       />
 
-      <div className="w-full text-center mt-16">
-          <p className="text-sm text-gray-700">last updated at 15 March 2020 at 18:00</p>
+      <div className="w-full text-center mt-4">
+        <p className="font-bold text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-4xl">Monitoring COVID-19</p>
+        <p className="text-sm text-gray-700">last updated at 15 March 2020 at 18:00</p>
+      </div>
+
+      <div className="w-full mt-4">
+        <div className="flex flex-row justify-center items-center">
+          <svg className="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <path
+              d="M1 4c0-1.1.9-2 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4zm2 2v12h14V6H3zm2-6h2v2H5V0zm8 0h2v2h-2V0zM5 9h2v2H5V9zm0 4h2v2H5v-2zm4-4h2v2H9V9zm0 4h2v2H9v-2zm4-4h2v2h-2V9zm0 4h2v2h-2v-2z" />
+          </svg>
+          <p className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-4xl font-bold">30</p>
+          <p className="mt-3 ml-1 text-sm text-gray-700">days</p>
+        </div>
+
+        <div className="flex justify-center">
+          <p className="text-xs font-hairline text-gray-700">since first case occured</p>
+        </div>
       </div>
 
       <div className="w-full h-auto mt-4 mx-auto">
@@ -39,16 +55,20 @@ function IndexPage() {
                   </div>
                   <div className="w-6/12">
                     {/* Badge */}
-                    <div className="flex items-baseline bg-red-100 border-2 border-red-400 px-1 py-1 rounded-lg">
-                      <span className="text-teal-600 text-xs font-extrabold mr-1" >+120</span>
-                      <svg className="w-3 h-3 fill-current text-gray-600 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                        <path
-                            d="M7 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0 1c2.15 0 4.2.4 6.1 1.09L12 16h-1.25L10 20H4l-.75-4H2L.9 10.09A17.93 17.93 0 0 1 7 9zm8.31.17c1.32.18 2.59.48 3.8.92L18 16h-1.25L16 20h-3.96l.37-2h1.25l1.65-8.83zM13 0a4 4 0 1 1-1.33 7.76 5.96 5.96 0 0 0 0-7.52C12.1.1 12.53 0 13 0z" />
-                      </svg>
-                      <span className="text-teal-600 text-xs font-extrabold mr-1">4.1 %</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current text-red-500">
-                        <path d="M7 11H1L12 0l11 11h-6v13H7z"/>
-                      </svg>
+                    <div className="flex justify-between items-baseline bg-red-100 border-2 border-red-400 px-1 py-1 rounded-lg">
+                      <div className="flex flex-row items-center">
+                        <span className="text-teal-600 text-xs font-extrabold mr-1" >+120</span>
+                        <svg className="w-3 h-3 fill-current text-gray-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                          <path
+                              d="M7 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0 1c2.15 0 4.2.4 6.1 1.09L12 16h-1.25L10 20H4l-.75-4H2L.9 10.09A17.93 17.93 0 0 1 7 9zm8.31.17c1.32.18 2.59.48 3.8.92L18 16h-1.25L16 20h-3.96l.37-2h1.25l1.65-8.83zM13 0a4 4 0 1 1-1.33 7.76 5.96 5.96 0 0 0 0-7.52C12.1.1 12.53 0 13 0z" />
+                        </svg>
+                      </div>
+                      <div className="flex flex-row items-center">
+                        <span className="text-teal-600 text-xs font-extrabold mr-1">4.1 %</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current text-red-500">
+                          <path d="M7 11H1L12 0l11 11h-6v13H7z"/>
+                        </svg>
+                      </div>
                     </div>
                     {/* End of Badge */}
                   </div>
@@ -126,16 +146,20 @@ function IndexPage() {
                   </div>
                   <div className="w-6/12">
                     {/* Badge */}
-                    <div className="flex items-baseline bg-green-100 border-2 border-green-400 px-1 py-1 rounded-lg">
-                      <span className="text-teal-600 text-xs font-extrabold mr-1" >+120</span>
-                      <svg className="w-3 h-3 fill-current text-gray-600 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                        <path
-                            d="M7 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0 1c2.15 0 4.2.4 6.1 1.09L12 16h-1.25L10 20H4l-.75-4H2L.9 10.09A17.93 17.93 0 0 1 7 9zm8.31.17c1.32.18 2.59.48 3.8.92L18 16h-1.25L16 20h-3.96l.37-2h1.25l1.65-8.83zM13 0a4 4 0 1 1-1.33 7.76 5.96 5.96 0 0 0 0-7.52C12.1.1 12.53 0 13 0z" />
-                      </svg>
-                      <span className="text-teal-600 text-xs font-extrabold mr-1">4.1 %</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current text-green-500">
-                        <path d="M7 11H1L12 0l11 11h-6v13H7z"/>
-                      </svg>
+                    <div className="flex justify-between items-baseline bg-green-100 border-2 border-green-400 px-1 py-1 rounded-lg">
+                      <div className="flex flex-row items-center">
+                        <span className="text-teal-600 text-xs font-extrabold mr-1" >+120</span>
+                        <svg className="w-3 h-3 fill-current text-gray-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                          <path
+                              d="M7 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0 1c2.15 0 4.2.4 6.1 1.09L12 16h-1.25L10 20H4l-.75-4H2L.9 10.09A17.93 17.93 0 0 1 7 9zm8.31.17c1.32.18 2.59.48 3.8.92L18 16h-1.25L16 20h-3.96l.37-2h1.25l1.65-8.83zM13 0a4 4 0 1 1-1.33 7.76 5.96 5.96 0 0 0 0-7.52C12.1.1 12.53 0 13 0z" />
+                        </svg>
+                      </div>
+                      <div className="flex flex-row items-center">
+                        <span className="text-teal-600 text-xs font-extrabold mr-1">4.1 %</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current text-green-500">
+                          <path d="M7 11H1L12 0l11 11h-6v13H7z"/>
+                        </svg>
+                      </div>
                     </div>
                     {/* End of Badge */}
                   </div>
@@ -213,16 +237,20 @@ function IndexPage() {
                   </div>
                   <div className="w-6/12">
                     {/* Badge */}
-                    <div className="flex items-baseline bg-green-100 border-2 border-green-400 px-1 py-1 rounded-lg">
-                      <span className="text-teal-600 text-xs font-extrabold mr-1" >+120</span>
-                      <svg className="w-3 h-3 fill-current text-gray-600 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                        <path
+                    <div className="flex justify-between items-baseline bg-green-100 border-2 border-green-400 px-1 py-1 rounded-lg">
+                      <div className="flex flex-row items-center">
+                        <span className="text-teal-600 text-xs font-extrabold mr-1">+120</span>
+                        <svg className="w-3 h-3 fill-current text-gray-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                          <path
                             d="M7 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0 1c2.15 0 4.2.4 6.1 1.09L12 16h-1.25L10 20H4l-.75-4H2L.9 10.09A17.93 17.93 0 0 1 7 9zm8.31.17c1.32.18 2.59.48 3.8.92L18 16h-1.25L16 20h-3.96l.37-2h1.25l1.65-8.83zM13 0a4 4 0 1 1-1.33 7.76 5.96 5.96 0 0 0 0-7.52C12.1.1 12.53 0 13 0z" />
-                      </svg>
-                      <span className="text-teal-600 text-xs font-extrabold mr-1">4.1 %</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current text-green-500">
-                        <path d="M7 11H1L12 0l11 11h-6v13H7z"/>
-                      </svg>
+                        </svg>
+                      </div>
+                      <div className="flex flex-row items-center">
+                        <span className="text-teal-600 text-xs font-extrabold mr-1">4.1 %</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current text-green-500">
+                          <path d="M7 11H1L12 0l11 11h-6v13H7z" />
+                        </svg>
+                      </div>
                     </div>
                     {/* End of Badge */}
                   </div>
@@ -364,15 +392,19 @@ function IndexPage() {
                     <div className="flex flex-col sm:flex-row">
                         <div className="w-full sm:w-1/2 flex justify-center p-2">
                             <a href="tel:112" className="w-full">
-                                <button className="w-full rounded-md border bg-white p-2 text-blue-500">
-                                    112
+                                <button className="w-full flex flex-row justify-center items-center rounded-md border bg-white p-2 text-blue-500">
+                                  <svg className="w-4 h-4 mr-1 fill-current text-blue-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M20 18.35V19a1 1 0 0 1-1 1h-2A17 17 0 0 1 0 3V1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4c0 .56-.31 1.31-.7 1.7L3.16 8.84c1.52 3.6 4.4 6.48 8 8l2.12-2.12c.4-.4 1.15-.71 1.7-.71H19a1 1 0 0 1 .99 1v3.35z" />
+                                  </svg>
+                                  <p className="font-bold tracking-wide">112</p>
                                 </button>
                             </a>
                         </div>
                         <div className="w-full sm:w-1/2 flex justify-center p-2">
                             <a href="tel:081388376955" className="w-full">
-                                <button className="w-full rounded-md border bg-white p-2 text-blue-500">
-                                    0813 8837 6955
+                                <button className="w-full flex flex-row justify-center items-center rounded-md border bg-white p-2 text-blue-500">
+                                  <svg className="w-4 h-4 mr-1 fill-current text-blue-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M20 18.35V19a1 1 0 0 1-1 1h-2A17 17 0 0 1 0 3V1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4c0 .56-.31 1.31-.7 1.7L3.16 8.84c1.52 3.6 4.4 6.48 8 8l2.12-2.12c.4-.4 1.15-.71 1.7-.71H19a1 1 0 0 1 .99 1v3.35z" />
+                                  </svg>
+                                  <p className="font-bold tracking-wide">0813-8837-6955</p>
                                 </button>
                             </a>
                         </div>
