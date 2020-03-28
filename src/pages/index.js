@@ -1,11 +1,108 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Chart } from "react-google-charts";
 
 import Layout from "../components/layout";
 import SEO from "../components/seo";
-// import catAndHumanIllustration from "../images/cat-and-human-illustration.svg";
 
 function IndexPage() {
+  // Client-side Runtime Data Fetching
+  const [cases, setCases] = useState({
+    'treated': {
+      'cumulative': 0,
+      'today': 0,
+      'percentageIncrease': 0,
+      'min': 0,
+      'max': 0,
+      'historical': []
+    },
+    'dead': {
+      'cumulative': 0,
+      'today': 0,
+      'percentageIncrease': 0,
+      'min': 0,
+      'max': 0,
+      'historical': []
+    },
+    'recovered': {
+      'cumulative': 0,
+      'today': 0,
+      'percentageIncrease': 0,
+      'min': 0,
+      'max': 0,
+      'historical': []
+    }
+  });
+  useEffect(() => {
+    // get data from GitHub api
+    fetch(`https://services5.arcgis.com/VS6HdKS0VfIhv8Ct/arcgis/rest/services/Statistik_Perkembangan_COVID19_Indonesia/FeatureServer/0/query?f=json&where=Tanggal%3Ctimestamp%20%272020-03-28%2017%3A00%3A00%27&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=Tanggal%20asc&resultOffset=0&resultRecordCount=2000&cacheHint=true`)
+      .then(response => response.json()) // parse JSON from request
+      .then(resultData => {
+        const features = resultData.features
+          .filter(feature => feature.Jumlah_Kasus_Kumulatif !== null)
+          .map(feature => ({
+            ...feature.attributes
+          }));
+
+        const todayFeature = features[features.length - 1];
+
+        setCases({
+          'treated': {
+            'cumulative': todayFeature['Jumlah_pasien_dalam_perawatan'],
+            'today': todayFeature['Jumlah_Kasus_Dirawat_per_Hari'],
+            'percentageIncrease': Math.round(
+              ((todayFeature['Jumlah_Kasus_Dirawat_per_Hari'] / (todayFeature['Jumlah_pasien_dalam_perawatan'] - todayFeature['Jumlah_Kasus_Dirawat_per_Hari']) * 100) + Number.EPSILON)
+              * 100
+            ) / 100,
+            'min': Math.min(...features.map(feature => feature.Jumlah_pasien_dalam_perawatan)),
+            'max': Math.max(...features.map(feature => feature.Jumlah_pasien_dalam_perawatan)),
+            'historical': [['kasus', 'kasus', {'type': 'string', 'role': 'style'}]].concat(
+              features.map((feature, index, array) => 
+                index === array.length - 1 ?
+                  [index, feature.Jumlah_pasien_dalam_perawatan, 'point { size: 4; shape-type: circle; fill-color: #a52714; }'] :
+                  [index, feature.Jumlah_pasien_dalam_perawatan, null]
+              )
+            )
+          },
+          'dead': {
+            'cumulative': todayFeature['Jumlah_Pasien_Meninggal'],
+            'today': todayFeature['Jumlah_Kasus_Meninggal_per_Hari'],
+            'percentageIncrease': Math.round(
+              ((todayFeature['Jumlah_Kasus_Meninggal_per_Hari'] / (todayFeature['Jumlah_Pasien_Meninggal'] - todayFeature['Jumlah_Kasus_Meninggal_per_Hari']) * 100) + Number.EPSILON)
+              * 100
+            ) / 100,
+            'min': Math.min(...features.map(feature => feature.Jumlah_Pasien_Meninggal)),
+            'max': Math.max(...features.map(feature => feature.Jumlah_Pasien_Meninggal)),
+            'historical': [['kasus', 'kasus', {'type': 'string', 'role': 'style'}]].concat(
+              features.map((feature, index, array) =>
+                index === array.length - 1 ?
+                  [index, feature.Jumlah_Pasien_Meninggal, 'point { size: 4; shape-type: circle; fill-color: #a52714; }'] :
+                  [index, feature.Jumlah_Pasien_Meninggal, null]
+              )
+            )
+          },
+          'recovered': {
+            'cumulative': todayFeature['Jumlah_Pasien_Sembuh'],
+            'today': todayFeature['Jumlah_Kasus_Sembuh_per_Hari'],
+            'percentageIncrease': Math.round(
+              ((todayFeature['Jumlah_Kasus_Sembuh_per_Hari'] / (todayFeature['Jumlah_Pasien_Sembuh'] - todayFeature['Jumlah_Kasus_Sembuh_per_Hari']) * 100) + Number.EPSILON)
+              * 100
+            ) / 100,
+            'min': Math.min(...features.map(feature => feature.Jumlah_Pasien_Sembuh)),
+            'max': Math.max(...features.map(feature => feature.Jumlah_Pasien_Sembuh)),
+            'historical': [['kasus', 'kasus', {'type': 'string', 'role': 'style'}]].concat(
+              features.map((feature, index, array) => 
+              index === array.length - 1 ?
+                [index, feature.Jumlah_Pasien_Sembuh, 'point { size: 4; shape-type: circle; fill-color: #a52714; }'] :
+                [index, feature.Jumlah_Pasien_Sembuh, null]
+              )
+            )
+          },
+        })
+      }) // set data for the number of stars
+  }, [])
+
+  console.log(cases);
+
   return (
     <Layout>
       <SEO
@@ -36,13 +133,13 @@ function IndexPage() {
       <div className="w-full h-auto mt-4 mx-auto">
         <div className="flex flex-col sm:flex-row justify-center">
             {/* Experiment */}
-            <div className="w-5/6 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/5 h-32 bg-white mx-auto sm:mx-1 md:mx-4 my-1 px-2 rounded-md shadow-lg">
+            <div className="w-5/6 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/5 h-40 bg-white mx-auto sm:mx-1 md:mx-4 my-1 px-2 rounded-md shadow-lg">
               <div className="w-full flex h-auto pt-2">
                   <div className="w-6/12 pl-2">
                     <div className="flex flex-col max-w-full">
                       <p className="text-gray-600 text-sm tracking-wider uppercase">Dirawat</p>
                       <div className="flex flex-row">
-                          <p className="text-3xl font-bold">269</p>
+                          <p className="text-3xl font-bold">{cases.treated.cumulative}</p>
                           <div className="w-4 h-4 mt-3 pt-1 pl-1">
                               <svg className="w-4 h-4 fill-current text-gray-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                   <path
@@ -57,14 +154,14 @@ function IndexPage() {
                     {/* Badge */}
                     <div className="flex justify-between items-baseline bg-red-100 border-2 border-red-400 px-1 py-1 rounded-lg">
                       <div className="flex flex-row items-center">
-                        <span className="text-teal-600 text-xs font-extrabold mr-1" >+120</span>
+                        <span className="text-teal-600 text-xs font-extrabold mr-1" >+ {cases.treated.today}</span>
                         <svg className="w-3 h-3 fill-current text-gray-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                           <path
                               d="M7 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0 1c2.15 0 4.2.4 6.1 1.09L12 16h-1.25L10 20H4l-.75-4H2L.9 10.09A17.93 17.93 0 0 1 7 9zm8.31.17c1.32.18 2.59.48 3.8.92L18 16h-1.25L16 20h-3.96l.37-2h1.25l1.65-8.83zM13 0a4 4 0 1 1-1.33 7.76 5.96 5.96 0 0 0 0-7.52C12.1.1 12.53 0 13 0z" />
                         </svg>
                       </div>
                       <div className="flex flex-row items-center">
-                        <span className="text-teal-600 text-xs font-extrabold mr-1">4.1 %</span>
+                        <span className="text-teal-600 text-xs font-extrabold mr-1">{cases.treated.percentageIncrease} %</span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current text-red-500">
                           <path d="M7 11H1L12 0l11 11h-6v13H7z"/>
                         </svg>
@@ -73,34 +170,20 @@ function IndexPage() {
                     {/* End of Badge */}
                   </div>
               </div>
-              <div className="h-8">
+              <div className="h-auto">
                 <Chart
-                  className='h-8'
+                  className='h-16'
                   chartType="LineChart"
-                  loader={<div>Loading Chart</div>}
-                  data={[
-                    ['x', 'dogs', {'type': 'string', 'role': 'style'}],
-                    [0, 0, null],
-                    [1, 10, null],
-                    [2, 23, null],
-                    [3, 17, null],
-                    [4, 18, null],
-                    [5, 9, null],
-                    [6, 11, null],
-                    [7, 27, null],
-                    [8, 33, null],
-                    [9, 40, null],
-                    [10, 32, null],
-                    [11, 35, null],
-                    [12, 1, 'point { size: 4; shape-type: circle; fill-color: #a52714; }']
-                    // [12, 1, null]
-                  ]}
+                  loader={<div>Sedang mempersiapkan grafik</div>}
+                  data={
+                    cases.treated.historical
+                  }
                   chartEvents={[
                     {
                       eventName: 'ready',
                       callback: ({ chartWrapper }) => {
                         chartWrapper.getChart().setSelection(
-                          [{row:12,column:1}]
+                          [{row: cases.treated.historical.length - 2,column:1}]
                         );
                       }
                     }
@@ -120,6 +203,10 @@ function IndexPage() {
                       gridlines: {
                         color: 'white'
                       },
+                      viewWindow: {
+                        'min': cases.treated.min,
+                        'max': cases.treated.max,
+                      }
                     },
                   }}
                   rootProps={{ 'data-testid': '1' }}
@@ -127,13 +214,13 @@ function IndexPage() {
                   {/* <!-- Reserved for graph / wave icon. Please note that the height can be adjusted as necessary --> */}
               </div>
             </div>
-            <div className="w-5/6 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/5 h-32 bg-white mx-auto sm:mx-1 md:mx-4 my-1 px-2 rounded-md shadow-lg">
+            <div className="w-5/6 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/5 h-40 bg-white mx-auto sm:mx-1 md:mx-4 my-1 px-2 rounded-md shadow-lg">
               <div className="w-full flex h-auto pt-2">
                   <div className="w-6/12 pl-2">
                     <div className="flex flex-col max-w-full">
                       <p className="text-gray-600 text-sm tracking-wider uppercase">Sembuh</p>
                       <div className="flex flex-row">
-                          <p className="text-3xl font-bold">269</p>
+                          <p className="text-3xl font-bold">{cases.recovered.cumulative}</p>
                           <div className="w-4 h-4 mt-3 pt-1 pl-1">
                               <svg className="w-4 h-4 fill-current text-gray-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                   <path
@@ -148,14 +235,14 @@ function IndexPage() {
                     {/* Badge */}
                     <div className="flex justify-between items-baseline bg-green-100 border-2 border-green-400 px-1 py-1 rounded-lg">
                       <div className="flex flex-row items-center">
-                        <span className="text-teal-600 text-xs font-extrabold mr-1" >+120</span>
+                        <span className="text-teal-600 text-xs font-extrabold mr-1" >+ {cases.recovered.today}</span>
                         <svg className="w-3 h-3 fill-current text-gray-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                           <path
                               d="M7 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0 1c2.15 0 4.2.4 6.1 1.09L12 16h-1.25L10 20H4l-.75-4H2L.9 10.09A17.93 17.93 0 0 1 7 9zm8.31.17c1.32.18 2.59.48 3.8.92L18 16h-1.25L16 20h-3.96l.37-2h1.25l1.65-8.83zM13 0a4 4 0 1 1-1.33 7.76 5.96 5.96 0 0 0 0-7.52C12.1.1 12.53 0 13 0z" />
                         </svg>
                       </div>
                       <div className="flex flex-row items-center">
-                        <span className="text-teal-600 text-xs font-extrabold mr-1">4.1 %</span>
+                        <span className="text-teal-600 text-xs font-extrabold mr-1">{cases.recovered.percentageIncrease} %</span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current text-green-500">
                           <path d="M7 11H1L12 0l11 11h-6v13H7z"/>
                         </svg>
@@ -164,34 +251,20 @@ function IndexPage() {
                     {/* End of Badge */}
                   </div>
               </div>
-              <div className="h-8">
+              <div className="h-auto">
                 <Chart
-                  className='h-8'
+                  className='h-16'
                   chartType="LineChart"
-                  loader={<div>Loading Chart</div>}
-                  data={[
-                    ['x', 'dogs', {'type': 'string', 'role': 'style'}],
-                    [0, 0, null],
-                    [1, 10, null],
-                    [2, 23, null],
-                    [3, 17, null],
-                    [4, 18, null],
-                    [5, 9, null],
-                    [6, 11, null],
-                    [7, 27, null],
-                    [8, 33, null],
-                    [9, 40, null],
-                    [10, 32, null],
-                    [11, 35, null],
-                    [12, 1, 'point { size: 4; shape-type: circle; fill-color: #a52714; }']
-                    // [12, 1, null]
-                  ]}
+                  loader={<div>Sedang mempersiapkan grafik</div>}
+                  data={
+                    cases.recovered.historical
+                  }
                   chartEvents={[
                     {
                       eventName: 'ready',
                       callback: ({ chartWrapper }) => {
                         chartWrapper.getChart().setSelection(
-                          [{row:12,column:1}]
+                          [{row:cases.recovered.historical.length - 2,column:1}]
                         );
                       }
                     }
@@ -211,6 +284,10 @@ function IndexPage() {
                       gridlines: {
                         color: 'white'
                       },
+                      viewWindow: {
+                        min: cases.recovered.min,
+                        max: cases.recovered.max
+                      }
                     },
                   }}
                   rootProps={{ 'data-testid': '1' }}
@@ -218,13 +295,13 @@ function IndexPage() {
                   {/* <!-- Reserved for graph / wave icon. Please note that the height can be adjusted as necessary --> */}
               </div>
             </div>
-            <div className="w-5/6 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/5 h-32 bg-white mx-auto sm:mx-1 md:mx-4 my-1 px-2 rounded-md shadow-lg">
+            <div className="w-5/6 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/5 h-40 bg-white mx-auto sm:mx-1 md:mx-4 my-1 px-2 rounded-md shadow-lg">
               <div className="w-full flex h-auto pt-2">
                   <div className="w-6/12 pl-2">
                     <div className="flex flex-col max-w-full">
                       <p className="text-gray-600 text-sm tracking-wider uppercase">Meninggal</p>
                       <div className="flex flex-row">
-                          <p className="text-3xl font-bold">269</p>
+                          <p className="text-3xl font-bold">{cases.dead.cumulative}</p>
                           <div className="w-4 h-4 mt-3 pt-1 pl-1">
                               <svg className="w-4 h-4 fill-current text-gray-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                   <path
@@ -237,17 +314,17 @@ function IndexPage() {
                   </div>
                   <div className="w-6/12">
                     {/* Badge */}
-                    <div className="flex justify-between items-baseline bg-green-100 border-2 border-green-400 px-1 py-1 rounded-lg">
+                    <div className="flex justify-between items-baseline bg-red-100 border-2 border-red-400 px-1 py-1 rounded-lg">
                       <div className="flex flex-row items-center">
-                        <span className="text-teal-600 text-xs font-extrabold mr-1">+120</span>
+                        <span className="text-teal-600 text-xs font-extrabold mr-1">+ {cases.dead.today}</span>
                         <svg className="w-3 h-3 fill-current text-gray-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                           <path
                             d="M7 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0 1c2.15 0 4.2.4 6.1 1.09L12 16h-1.25L10 20H4l-.75-4H2L.9 10.09A17.93 17.93 0 0 1 7 9zm8.31.17c1.32.18 2.59.48 3.8.92L18 16h-1.25L16 20h-3.96l.37-2h1.25l1.65-8.83zM13 0a4 4 0 1 1-1.33 7.76 5.96 5.96 0 0 0 0-7.52C12.1.1 12.53 0 13 0z" />
                         </svg>
                       </div>
                       <div className="flex flex-row items-center">
-                        <span className="text-teal-600 text-xs font-extrabold mr-1">4.1 %</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current text-green-500">
+                        <span className="text-teal-600 text-xs font-extrabold mr-1">{cases.dead.percentageIncrease} %</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current text-red-500">
                           <path d="M7 11H1L12 0l11 11h-6v13H7z" />
                         </svg>
                       </div>
@@ -255,34 +332,20 @@ function IndexPage() {
                     {/* End of Badge */}
                   </div>
               </div>
-              <div className="h-8">
+              <div className="h-auto">
                 <Chart
-                  className='h-8'
+                  className='h-16'
                   chartType="LineChart"
-                  loader={<div>Loading Chart</div>}
-                  data={[
-                    ['x', 'dogs', {'type': 'string', 'role': 'style'}],
-                    [0, 0, null],
-                    [1, 10, null],
-                    [2, 23, null],
-                    [3, 17, null],
-                    [4, 18, null],
-                    [5, 9, null],
-                    [6, 11, null],
-                    [7, 27, null],
-                    [8, 33, null],
-                    [9, 40, null],
-                    [10, 32, null],
-                    [11, 35, null],
-                    [12, 1, 'point { size: 4; shape-type: circle; fill-color: #a52714; }']
-                    // [12, 1, null]
-                  ]}
+                  loader={<div>Sedang mempersiapkan grafik</div>}
+                  data={
+                    cases.dead.historical
+                  }
                   chartEvents={[
                     {
                       eventName: 'ready',
                       callback: ({ chartWrapper }) => {
                         chartWrapper.getChart().setSelection(
-                          [{row:12,column:1}]
+                          [{row:cases.dead.historical.length - 2,column:1}]
                         );
                       }
                     }
@@ -302,6 +365,10 @@ function IndexPage() {
                       gridlines: {
                         color: 'white'
                       },
+                      viewWindow: {
+                        min: cases.dead.min,
+                        max: cases.dead.max,
+                      }
                     },
                   }}
                   rootProps={{ 'data-testid': '1' }}
