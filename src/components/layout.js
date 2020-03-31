@@ -5,16 +5,20 @@ import Header from "./header";
 
 function Layout({ children }) {
   return (
-    <div className="bg-gray-300 antialiased text-gray-900">
+    <div className="bg-gray-200 text-gray-900 w-full">
       <Header />
 
-      <main className="flex flex-col flex-1 md:justify-center max-w-4xl mx-auto px-4 py-8 md:p-8 w-full">
+      {/* <main className="md:justify-center mx-auto py-8 w-full">
         
+      </main> */}
+
+      <main className="w-full px-4">
+
       </main>
       {children}
 
       <footer className="bg-blue-700">
-        <nav className="flex justify-between max-w-4xl mx-auto p-4 md:p-8 text-sm">
+        <nav className="w-full flex justify-between mx-auto p-4 md:p-8 text-sm">
           <p className="text-white">
             Created by{` `}
             <a

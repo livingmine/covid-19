@@ -130,10 +130,10 @@ function IndexPage() {
         </div>
       </div>
 
-      <div className="w-full h-auto mt-4 mx-auto">
-        <div className="flex flex-col sm:flex-row justify-center">
+      <div className="w-full bg-gray-200 h-auto mt-4 mx-auto py-4">
+        <div className="flex flex-col lg:flex-row justify-center items-center">
             {/* Experiment */}
-            <div className="w-5/6 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/5 h-40 bg-white mx-auto sm:mx-1 md:mx-4 my-1 px-2 rounded-md shadow-lg">
+            <div className="sm:w-1/2 md:w-2/5 lg:w-2/4 xl:w-1/4 h-40 bg-white m-2 px-2 rounded-md shadow-lg">
               <div className="w-full flex h-auto pt-2">
                   <div className="w-6/12 pl-2">
                     <div className="flex flex-col max-w-full">
@@ -162,9 +162,11 @@ function IndexPage() {
                       </div>
                       <div className="flex flex-row items-center">
                         <span className="text-teal-600 text-xs font-extrabold mr-1">{cases.treated.percentageIncrease} %</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current text-red-500">
-                          <path d="M7 11H1L12 0l11 11h-6v13H7z"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3 fill-current text-red-500" viewBox="0 0 320 512"><path d="M177 255.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 351.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 425.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1zm-34-192L7 199.7c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l96.4-96.4 96.4 96.4c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9l-136-136c-9.2-9.4-24.4-9.4-33.8 0z" />
                         </svg>
+                        {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current text-red-500">
+                          <path d="M7 11H1L12 0l11 11h-6v13H7z"/>
+                        </svg> */}
                       </div>
                     </div>
                     {/* End of Badge */}
@@ -214,7 +216,7 @@ function IndexPage() {
                   {/* <!-- Reserved for graph / wave icon. Please note that the height can be adjusted as necessary --> */}
               </div>
             </div>
-            <div className="w-5/6 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/5 h-40 bg-white mx-auto sm:mx-1 md:mx-4 my-1 px-2 rounded-md shadow-lg">
+            <div className="sm:w-1/2 md:w-2/5 lg:w-2/4 xl:w-1/4 h-40 bg-white m-2 px-2 rounded-md shadow-lg">
               <div className="w-full flex h-auto pt-2">
                   <div className="w-6/12 pl-2">
                     <div className="flex flex-col max-w-full">
@@ -243,9 +245,11 @@ function IndexPage() {
                       </div>
                       <div className="flex flex-row items-center">
                         <span className="text-teal-600 text-xs font-extrabold mr-1">{cases.recovered.percentageIncrease} %</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current text-green-500">
-                          <path d="M7 11H1L12 0l11 11h-6v13H7z"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3 fill-current text-green-500" viewBox="0 0 320 512"><path d="M177 255.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 351.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 425.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1zm-34-192L7 199.7c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l96.4-96.4 96.4 96.4c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9l-136-136c-9.2-9.4-24.4-9.4-33.8 0z" />
                         </svg>
+                        {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current text-green-500">
+                          <path d="M7 11H1L12 0l11 11h-6v13H7z"/>
+                        </svg> */}
                       </div>
                     </div>
                     {/* End of Badge */}
@@ -295,7 +299,7 @@ function IndexPage() {
                   {/* <!-- Reserved for graph / wave icon. Please note that the height can be adjusted as necessary --> */}
               </div>
             </div>
-            <div className="w-5/6 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/5 h-40 bg-white mx-auto sm:mx-1 md:mx-4 my-1 px-2 rounded-md shadow-lg">
+            <div className="sm:w-1/2 md:w-2/5 lg:w-2/4 xl:w-1/4 h-40 bg-white m-2 px-2 rounded-md shadow-lg">
               <div className="w-full flex h-auto pt-2">
                   <div className="w-6/12 pl-2">
                     <div className="flex flex-col max-w-full">
@@ -324,9 +328,11 @@ function IndexPage() {
                       </div>
                       <div className="flex flex-row items-center">
                         <span className="text-teal-600 text-xs font-extrabold mr-1">{cases.dead.percentageIncrease} %</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current text-red-500">
-                          <path d="M7 11H1L12 0l11 11h-6v13H7z" />
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3 fill-current text-red-500" viewBox="0 0 320 512"><path d="M177 255.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 351.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 425.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1zm-34-192L7 199.7c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l96.4-96.4 96.4 96.4c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9l-136-136c-9.2-9.4-24.4-9.4-33.8 0z" />
                         </svg>
+                        {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current text-red-500">
+                          <path d="M7 11H1L12 0l11 11h-6v13H7z" />
+                        </svg> */}
                       </div>
                     </div>
                     {/* End of Badge */}
@@ -380,14 +386,13 @@ function IndexPage() {
         </div>
       </div>
 
-      <div className="w-full flex p-4">
+      {/* <div className="w-full flex p-4">
           <div className="bg-white h-32 w-full rounded-md shadow-lg">
-              {/* <!-- Reserved for main content --> */}
           </div>
-      </div>
+      </div> */}
 
       {/* <!-- Information section --> */}
-      <div className="w-full mt-4 mb-4">
+      {/* <div className="w-full mt-4 mb-4">
         <div className="flex flex-wrap sm:flex-no-wrap sm:flex-row justify-center">
             <div className="bg-white w-full sm:w-3/4 lg:w-2/5 h-auto rounded-md shadow-lg my-2 mx-4 p-4">
                 <p className="font-bold text-xl text-center">What is Corona Virus?</p>
@@ -479,7 +484,7 @@ function IndexPage() {
                 </div>
             </div>
         </div>
-      </div>
+      </div> */}
 
 
     </Layout>
