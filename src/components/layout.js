@@ -8,16 +8,11 @@ function Layout({ children }) {
     <div className="bg-gray-200 text-gray-900 w-full">
       <Header />
 
-      {/* <main className="md:justify-center mx-auto py-8 w-full">
-        
-      </main> */}
-
-      <main className="w-full px-4">
-
+      <main className="w-full px-4 min-h-screen relative">
+        {children}
       </main>
-      {children}
-
-      <footer className="bg-blue-700">
+      
+      <footer className="w-full mx-0 bg-blue-700 absolute">
         <nav className="w-full flex justify-between mx-auto p-4 md:p-8 text-sm">
           <p className="text-white">
             Created by{` `}
