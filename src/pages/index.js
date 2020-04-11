@@ -5,7 +5,6 @@ import Layout from "../components/layout";
 import SEO from "../components/seo";
 import Counter from "../components/counter";
 import Wrapper from "../components/wrapper";
-import Badge from "../components/badge";
 import Card from "../components/card";
 
 function IndexPage() {
@@ -107,6 +106,8 @@ function IndexPage() {
 
   console.log(cases);
 
+  
+
   return (
     <Layout>
       <SEO
@@ -115,14 +116,18 @@ function IndexPage() {
       />
       <Counter />
       <Wrapper>
-        <Card cardTitle="Dirawat" casesCumulative={cases.treated.cumulative}>
-          <Badge
-            badgeBgColor="bg-red-100"
-            borderColor="border-red-400"
-            iconColor="text-red-500"
-            caseNumber={cases.treated.today}
-            casePercentage={cases.treated.percentageIncrease}
-          />
+        {
+          
+        }
+        <Card 
+          cardTitle="Dirawat" 
+          casesCumulative={cases.treated.cumulative}
+          badgeBgColor="bg-red-100"
+          badgeBorderColor="border-red-400"
+          badgeIconColor="text-red-500"
+          caseNumber={cases.treated.today}
+          casePercentage={cases.treated.percentageIncrease}
+        >
           <Chart
             className='h-16'
             chartType="LineChart"
@@ -164,14 +169,15 @@ function IndexPage() {
             rootProps={{ 'data-testid': '1' }}
           />
         </Card>
-        <Card cardTitle="Sembuh" casesCumulative={cases.recovered.cumulative}>
-          <Badge
-            badgeBgColor="bg-green-100"
-            borderColor="border-green-400"
-            iconColor="text-green-500"
-            caseNumber={cases.recovered.today}
-            casePercentage={cases.recovered.percentageIncrease}
-          />
+        <Card 
+          cardTitle="Sembuh" 
+          casesCumulative={cases.recovered.cumulative}
+          badgeBgColor="bg-green-100"
+          badgeBorderColor="border-green-400"
+          badgeIconColor="text-green-500"
+          caseNumber={cases.recovered.today}
+          casePercentage={cases.recovered.percentageIncrease}
+        >
           <Chart
             className='h-16'
             chartType="LineChart"
@@ -213,14 +219,15 @@ function IndexPage() {
             rootProps={{ 'data-testid': '1' }}
           />
         </Card>
-        <Card cardTitle="Meninggal" casesCumulative={cases.dead.cumulative}>
-          <Badge
-            badgeBgColor="bg-red-100"
-            borderColor="border-red-400"
-            iconColor="text-red-500"
-            caseNumber={cases.dead.today}
-            casePercentage={cases.dead.percentageIncrease}
-          />
+        <Card 
+          cardTitle="Meninggal" 
+          casesCumulative={cases.dead.cumulative}
+          badgeBgColor="bg-red-100"
+          badgeBorderColor="border-red-400"
+          badgeIconColor="text-red-500"
+          caseNumber={cases.dead.today}
+          casePercentage={cases.dead.percentageIncrease}
+        >
           <Chart
             className='h-16'
             chartType="LineChart"

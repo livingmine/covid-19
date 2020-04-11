@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function Card({ children, cardTitle, casesCumulative }) {
+import Badge from './badge'
+
+function Card({ children, cardTitle, casesCumulative, badgeBgColor, badgeBorderColor, badgeIconColor, caseNumber, casePercentage }) {
     return(
         <div className="sm:w-1/2 md:w-2/5 lg:w-2/4 xl:w-1/4 h-40 bg-white m-2 px-2 rounded-md shadow-lg">
             <div className="w-full flex h-auto pt-2">
@@ -20,11 +22,17 @@ function Card({ children, cardTitle, casesCumulative }) {
                     </div>
                 </div>
                 <div className="w-6/12">
-                    {children[0]}
+                    <Badge
+                        badgeBgColor={badgeBgColor}
+                        borderColor={badgeBorderColor}
+                        iconColor={badgeIconColor}
+                        caseNumber={caseNumber}
+                        casePercentage={casePercentage}
+                    />
                 </div>
             </div>
             <div className="h-auto">
-                {children[1]}
+                {children}
             </div>
         </div>
     );
@@ -33,7 +41,12 @@ function Card({ children, cardTitle, casesCumulative }) {
 Card.propTypes = {
     children: PropTypes.node.isRequired,
     cardTitle: PropTypes.string.isRequired,
-    casesCumulative: PropTypes.number.isRequired
+    casesCumulative: PropTypes.number.isRequired,
+    badgeBgColor: PropTypes.string.isRequired,
+    badgeBorderColor: PropTypes.string.isRequired,
+    badgeIconColor: PropTypes.string.isRequired,
+    caseNumber: PropTypes.number.isRequired,
+    casePercentage: PropTypes.number.isRequired
 }
 
 export default Card
